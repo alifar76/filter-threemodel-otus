@@ -17,36 +17,19 @@ All other packages will be loaded and/or installed by pacman.
 Running the script
 ------
 
-There is 1 script in the folder ```src```. It is called ```nb_regression_outlier_filtering.R```. The script is run via command line using the Rscript command (in terminal). There are 3 scripts in the folder ```old_code``` but they can be ignored as they are just older versions, saved for trouble-shooting. There is also an additional Python script in the ```filtering```. It is called ```filter_mapper.py```. It is to be used to further results by lowest BIC of the 3 models tested and a user-defined q-value threshold.
+There is 1 script in the folder ```src```. It is called ```best_model_selection.R```. The script is run through R or Rstudio.
 
-To run the script, pass the command in following format:
+To run the script, open it in R or Rstudio and change the following 4 variables in it:
 
-```Rscript nb_regression_outlier_filtering.R high_vs_low_otu_table.txt high_low_mapfile.txt High Low Treatment ZINB_NB_Output_result.txt 2```
+1) **workdir** (Line 28 of script): This refers to the working directory in which the script will reside and will be run from.
 
-As seen from the command, the script takes in 7 commands. They are as follows:
+2) **infile** (Line 29 of script): This refers to the input file produced as the ouput of [NegBinSig-Test](https://github.com/alifar76/NegBinSig-Test). In the example provided, it is called **three_model_output.txt**.
 
-1) OTU table generated via QIIME (which is called **high_vs_low_otu_table.txt** in the above example)
+3) **difference** (Line 30 of script): This is the header showing the mean difference in abundance of OTUs between two treatment groups as labelled in the ouput of [NegBinSig-Test](https://github.com/alifar76/NegBinSig-Test). In the example provided, it is called **High_minus_Low_mean**.
 
-2) QIIME compatible mapping file (which is called **high_low_mapfile.txt** in the above example)
+4) **oname** (Line 31 of script): This refers to the name of the final ouput file. In the example provided, it is called **best_model_otus.csv**.
 
-3) Level 1 of the category being compared (which is called **High** in the above example)
-
-4) Level 2 of the category being compared (which is called **Low** in the above example)
-
-5) Column name of the category being compared as labelled in the mapping file (which is called **Treatment** in the above example)
-
-6) Output file contaiing result (which is called **ZINB_NB_Output_result.txt** in the above example)
-
-7) No. of cores to use. More cores on machine, faster the analysis will complete (which is **2** in the above example)
-
-Please ensure that all the 7 arguments are provided, in the correct order and format. Otherwise, the script will crash and cause problems.
-
-Input file format
-------
-
-Input of file format should be one compatabile with QIIME. However, please ensure that the sample IDs are not numeric. That is, the sample IDs should not be like: 1560.1, 1561.1, 1559.1, etc. If such is the case, please slightly modify the sample IDs in both the mapping file and OTU table by adding any alphabet. So, for example, sample ID 1560.1 will become p1560.1.
-
-Also, please make sure that the mapping file has the same number of samples as the OTU tables, having the same sample IDs. If mapping file has more or less sample IDs than the samples in the OTU table, the script will crash.
+Please ensure that all the 4 variable are adjusted, in the correct order and format. Otherwise, the script will crash and cause problems.
 
 Output Explained
 ------
